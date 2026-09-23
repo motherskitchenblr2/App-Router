@@ -3,6 +3,8 @@
 # starts only what is down, backgrounds everything so this returns fast.
 set -e
 
+cd /workspace || exit 1
+
 PROBE_URL="http://127.0.0.1:8080/"
 
 if curl -fsS --max-time 2 "$PROBE_URL" >/dev/null 2>&1; then
