@@ -78,7 +78,11 @@ function ChatPage() {
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, streaming, activeId]);
 
-  const showEmpty = ready && !activeId && messages.length === 0;
+  // Show the empty state whenever there is no thread to render — including an
+  // auto-opened conversation with no messages (e.g. a send that never got to
+  // save before the tab closed). Gating on `!activeId` left those visitors on a
+  // permanently blank chat area with no greeting and no suggestions.
+  const showEmpty = messages.length === 0 && !streaming;
 
   return (
     <div className="flex h-full flex-col">
