@@ -25,6 +25,10 @@ export interface AiSettings {
   contextLength: number;
   /** User must explicitly enable the capped cloud path. */
   cloudEnabled: boolean;
+  /** Reasoning effort sent to thinking-capable models. */
+  thinking: "off" | "low" | "medium" | "high";
+  /** How often the UI asks before acting (rename/delete/fork/regenerate). */
+  autonomy: "ask-critical" | "always-ask" | "full-auto";
 }
 
 export const DEFAULT_SETTINGS: AiSettings = {
@@ -32,6 +36,8 @@ export const DEFAULT_SETTINGS: AiSettings = {
   modelId: "llama3.2:3b",
   contextLength: 8192,
   cloudEnabled: false,
+  thinking: "off",
+  autonomy: "ask-critical",
 };
 
 export function loadSettings(): AiSettings {

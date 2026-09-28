@@ -32,8 +32,8 @@ function CodeBlock({ className, children, ...props }: ComponentPropsWithoutRef<"
   }
 
   return (
-    <div className="group relative my-2 overflow-hidden rounded-xl bg-[#0e0e10] hairline">
-      <div className="flex items-center justify-between border-b border-line bg-surface/60 px-3 py-1.5">
+    <div className="group relative my-2 overflow-hidden rounded-lg bg-elevated hairline">
+      <div className="flex items-center justify-between border-b border-line px-3 py-1.5">
         <span className="font-mono text-[11px] text-faint">
           {(className ?? "").replace("language-", "") || "code"}
         </span>
@@ -101,7 +101,7 @@ const components = {
 
 export const Markdown = memo(function Markdown({ children }: { children: string }) {
   return (
-    <div className="text-[15px]">
+    <div className="text-[13px]">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {children}
       </ReactMarkdown>

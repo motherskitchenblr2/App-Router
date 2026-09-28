@@ -28,13 +28,21 @@ export interface ProviderInfo {
 export interface ChatMessage {
   role: "user" | "assistant" | "system";
   content: string;
+  /** Model's private reasoning stream, when the backend returns one. */
+  reasoning?: string;
 }
+
+/** Reasoning effort for thinking-capable models. "off" omits the parameter. */
+export type ThinkingLevel = "off" | "low" | "medium" | "high";
 
 export interface ChatOptions {
   temperature?: number;
   maxTokens?: number;
   contextLength?: number;
   signal?: AbortSignal;
+  thinking?: ThinkingLevel;
+  /** Streams the model's reasoning tokens, when it produces any. */
+  onReasoning?: (delta: string) => void;
 }
 
 export interface ChatResult {

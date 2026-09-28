@@ -27,10 +27,23 @@ if (args.error) {
 }
 
 const url = checkedUrl(args.url);
-const outPng = checkedOutputPath(args.outPng, ["/workspace"]);
+// `/workspace` may be a symlink to the project root — accept both the logical
+// path and its realpath so realpath'd arguments (like --baseline below) still
+// validate as inside the workspace.
+const workspaceRoots = (() => {
+  const roots = ["/workspace"];
+  try {
+    const real = realpathSync("/workspace");
+    if (real !== "/workspace") roots.push(real);
+  } catch {
+    /* keep the logical root only */
+  }
+  return roots;
+})();
+const outPng = checkedOutputPath(args.outPng, workspaceRoots);
 const derived = derivedPaths(outPng);
-const mobilePng = checkedOutputPath(derived.mobilePng, ["/workspace"]);
-const outJson = checkedOutputPath(derived.verdictJson, ["/workspace"], "verdict JSON");
+const mobilePng = checkedOutputPath(derived.mobilePng, workspaceRoots);
+const outJson = checkedOutputPath(derived.verdictJson, workspaceRoots, "verdict JSON");
 
 const MAX_BASELINE_BYTES = 1024 * 1024;
 const baselineRequested = Boolean(args.baseline);
@@ -38,11 +51,19 @@ let baselinePath = null;
 let baselineResolveError = null;
 if (baselineRequested) {
   try {
-    baselinePath = checkedOutputPath(realpathSync(args.baseline), ["/workspace"], "baseline");
+    baselinePath = checkedOutputPath(realpathSync(args.baseline), workspaceRoots, "baseline");
   } catch (err) {
     baselineResolveError = err?.code ?? "unresolvable path";
   }
-  if (baselinePath === outJson) {
+  // Compare realpaths: `/workspace` is a symlink, so the same file reached via
+  // two spellings must still be recognised as this run's own verdict output.
+  let outJsonReal = outJson;
+  try {
+    outJsonReal = realpathSync(outJson);
+  } catch {
+    /* verdict not written yet — keep the logical path */
+  }
+  if (baselinePath === outJsonReal) {
     console.error(
       JSON.stringify(
         {
@@ -109,7 +130,13 @@ try {
     // networkidle never settles and would burn the whole timeout.
     const resp = await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
     const status = resp?.status() ?? 0;
-    await page.waitForTimeout(1000);
+    // Wait for React hydration (`data-app-ready`, set by MountMark in __root.tsx)
+    // so screenshots and text capture reflect the interactive app, not just SSR
+    // HTML — dev-mode hydration can take seconds on a cold module graph.
+    await page
+      .waitForSelector("html[data-app-ready]", { timeout: Math.min(timeoutMs, 30000) })
+      .catch(() => undefined);
+    await page.waitForTimeout(600);
 
     const title = await page.title();
     const hasCanvas = (await page.locator("canvas").count()) > 0;

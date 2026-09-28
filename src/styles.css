@@ -1,49 +1,92 @@
 @import "tailwindcss";
 
+/*
+ * OpenCode web-UI design system.
+ * Light values captured from the reference implementation's computed
+ * v2-* tokens (bg-deep/bg-base/layers/borders/text/icons/overlays);
+ * dark values are the inverse of the same ladder.
+ *
+ * Existing utility names (canvas/surface/elevated/overlay/ink/… ) are kept
+ * so every component restyles by swapping this file.
+ */
 @theme {
-  /* GrokShell palette — near-black canvas, white ink, restrained red-orange accent */
+  --color-canvas: #fafafa; /* v2 bg-deep */
+  --color-surface: #ffffff; /* v2 bg-base */
+  --color-elevated: #f2f2f2; /* v2 layer-02 */
+  --color-overlay: #eeeeee; /* v2 layer-03 */
+  --color-ink: #161616; /* v2 text-base */
+  --color-muted: #5c5c5c; /* v2 text-muted */
+  --color-faint: #707070; /* v2 text-faint, darkened to clear WCAG AA (4.74:1 on canvas) */
+  --color-line: rgb(0 0 0 / 0.1); /* v2 border-base */
+  --color-line-strong: rgb(0 0 0 / 0.2); /* v2 border-strong */
+  --color-accent: #161616; /* primary action = ink (OpenCode's neutral buttons) */
+  --color-accent-soft: #eeeeee;
+  --color-accent-ink: #ffffff;
+  --color-icon: #3a3a3a; /* v2 icon-base */
+  --color-hover: rgb(0 0 0 / 0.04); /* v2 overlay-hover */
+  --color-pressed: rgb(0 0 0 / 0.08); /* v2 overlay-pressed */
+  --color-ok: #15803d;
+  --color-warn: #b45309;
+  --color-danger: #d92d20;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --radius-card: 8px;
+  --radius-pill: 6px;
+}
+
+/* Dark ladder — same structure, inverted (matches the original app palette). */
+html.dark {
   --color-canvas: #0a0a0a;
   --color-surface: #111113;
   --color-elevated: #17171a;
   --color-overlay: #1d1d21;
   --color-ink: #f4f4f5;
   --color-muted: #9a9aa2;
-  --color-faint: #5c5c63;
+  --color-faint: #8b8b94; /* AA on the dark ladder too (5.8:1 on canvas) */
   --color-line: #212125;
   --color-line-strong: #2c2c31;
-  --color-accent: #e8442e;
-  --color-accent-soft: #3a1410;
-  --color-accent-ink: #ffffff;
+  --color-accent: #f4f4f5;
+  --color-accent-soft: #26262b;
+  --color-accent-ink: #111113;
+  --color-icon: #d4d4d8;
+  --color-hover: rgb(255 255 255 / 0.06);
+  --color-pressed: rgb(255 255 255 / 0.1);
   --color-ok: #37d67a;
   --color-warn: #f5a623;
-  --color-danger: #e8442e;
-
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono",
-    Menlo, Consolas, monospace;
-
-  --radius-card: 0.875rem;
-  --radius-pill: 999px;
+  --color-danger: #ff6b5a;
 }
 
 @layer base {
-  html {
+  :root {
+    color-scheme: light;
+  }
+  html.dark {
     color-scheme: dark;
   }
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    /* Reference UI: 13px base at weight 440 */
+    font-size: 13px;
+    font-weight: 440;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   ::selection {
-    background: rgba(232, 68, 46, 0.35);
+    background: rgb(22 22 22 / 0.16);
+  }
+  html.dark ::selection {
+    background: rgb(244 244 245 / 0.24);
   }
   * {
     scrollbar-width: thin;
@@ -52,7 +95,6 @@
 }
 
 @layer components {
-  /* Hairline border helper */
   .hairline {
     border: 1px solid var(--color-line);
   }
@@ -80,7 +122,7 @@
   height: 1em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background: var(--color-accent);
+  background: var(--color-ink);
   animation: caret-blink 1s infinite steps(1);
 }
 

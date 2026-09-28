@@ -66,10 +66,12 @@ export function ModelPicker() {
   return (
     <div className="relative">
       <button
+        id="composer-model-button"
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "flex h-9 max-w-[220px] items-center gap-2 rounded-full bg-surface px-3.5 text-sm font-medium text-ink hairline transition-colors hover:bg-elevated",
+          "flex h-7 max-w-[220px] items-center gap-1.5 rounded-md px-2 text-[11px] transition-colors hover:bg-hover",
+          open ? "bg-hover text-ink" : "text-muted",
         )}
       >
         <span
@@ -82,8 +84,11 @@ export function ModelPicker() {
                 : "bg-faint",
           )}
         />
-        <span className="truncate">{settings.modelId || "Select a model"}</span>
-        <span className="hidden text-[11px] text-faint sm:inline">
+        <Cpu className="h-3 w-3" />
+        <span className="truncate font-mono" suppressHydrationWarning>
+          {settings.modelId || "Select a model"}
+        </span>
+        <span className="hidden text-[10px] text-faint sm:inline" suppressHydrationWarning>
           · {activeInfo?.label ?? settings.providerId}
         </span>
       </button>
@@ -91,8 +96,8 @@ export function ModelPicker() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full z-50 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] rounded-2xl bg-elevated p-2 hairline shadow-[0_16px_60px_rgba(0,0,0,0.6)]">
-            <div className="flex flex-wrap gap-1.5 px-1 pb-2 pt-1">
+          <div className="absolute bottom-full left-0 z-50 mb-2 w-[22rem] max-w-[calc(100vw-2rem)] rounded-lg bg-surface p-1.5 hairline shadow-xl">
+            <div className="flex flex-wrap gap-1 px-1 pb-2 pt-1">
               {ALL_PROVIDER_INFOS.map((p) => (
                 <button
                   key={p.id}
@@ -100,10 +105,10 @@ export function ModelPicker() {
                   onClick={() => pickProvider(p.id)}
                   title={p.setupHint}
                   className={cn(
-                    "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                    "rounded-md px-2 py-1 text-[11px] transition-colors",
                     settings.providerId === p.id
-                      ? "bg-accent text-accent-ink"
-                      : "bg-surface text-muted hairline hover:bg-overlay hover:text-ink",
+                      ? "bg-ink font-medium text-canvas"
+                      : "bg-elevated text-muted hover:text-ink",
                   )}
                 >
                   {p.label}
@@ -130,19 +135,19 @@ export function ModelPicker() {
                       type="button"
                       onClick={() => updateSettings({ modelId: m.id })}
                       className={cn(
-                        "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition-colors",
-                        active ? "bg-surface hairline" : "hover:bg-surface/60",
+                        "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left transition-colors",
+                        active ? "bg-elevated" : "hover:bg-hover",
                       )}
                     >
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="truncate text-sm font-medium text-ink">{m.name}</span>
+                          <span className="truncate font-mono text-xs text-ink">{m.name}</span>
                           {m.license === "Apache-2.0" || m.license === "MIT" ? (
                             <Badge tone="ok">free</Badge>
                           ) : null}
                           {m.tags.includes("vision") && <Badge tone="accent">vision</Badge>}
                         </div>
-                        <div className="truncate text-[11px] text-faint">
+                        <div className="truncate text-[10px] text-faint">
                           {m.params} · ~{m.sizeGB}GB · {m.license}
                         </div>
                       </div>
@@ -155,7 +160,7 @@ export function ModelPicker() {
             <Link
               to="/device-adviser"
               onClick={() => setOpen(false)}
-              className="mt-1 flex items-center gap-2 rounded-xl px-3 py-2.5 text-xs text-muted transition-colors hover:bg-surface hover:text-ink hairline"
+              className="mt-1 flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted transition-colors hover:bg-hover hover:text-ink"
             >
               <Cpu className="h-3.5 w-3.5" />
               Device Adviser — find models that fit this machine
