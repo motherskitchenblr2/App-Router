@@ -1,7 +1,14 @@
 # GrokShell — Free, uncapped AI chat
 
-A dark, Grok-style AI chat app where the AI runs on **your own hardware** —
-free open-source models, no usage caps, no AI-cloud accounts.
+**Live app:** https://ollama-ai-chat-ui.vercel.app/ ·
+**Sign-in:** https://ollama-ai-chat-ui.vercel.app/login ·
+**Repo:** https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI ·
+**[Complete project details](PROJECT_DETAILS.md)** (all URLs, features,
+architecture, QA evidence, deployments, screenshots)
+
+A dark, Grok-style AI chat app with an **OpenCode v2 web UI**, where the AI
+runs on **your own hardware** — free open-source models, no usage caps, no
+AI-cloud accounts.
 
 - **Chat** with streaming answers from local models — Ollama daemon
   (`localhost:11434`), any OpenAI-compatible local server (LM Studio, llama.cpp,
