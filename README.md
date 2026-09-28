@@ -1,8 +1,8 @@
-# GrokShell — Free, uncapped AI chat
+# App Router — Free, uncapped AI chat
 
-**Live app:** https://ollama-ai-chat-ui.vercel.app/ ·
-**Sign-in:** https://ollama-ai-chat-ui.vercel.app/login ·
-**Repo:** https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI ·
+**Live app:** https://app-router-ui.vercel.app/ ·
+**Sign-in:** https://app-router-ui.vercel.app/login ·
+**Repo:** https://github.com/motherskitchenblr2/App-Router ·
 **[Complete project details](PROJECT_DETAILS.md)** (all URLs, features,
 architecture, QA evidence, deployments, screenshots)
 

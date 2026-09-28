@@ -1,4 +1,4 @@
-# GrokShell — Complete Project Details
+# App Router — Complete Project Details
 
 > An OpenCode v2–style web UI for free, uncapped AI chat that runs on your own
 > hardware (Ollama / OpenAI-compatible servers / in-browser WebGPU), with a
@@ -13,33 +13,32 @@
 
 | What | URL |
 | --- | --- |
-| **Live app (production)** | https://ollama-ai-chat-ui.vercel.app/ |
-| Sign-in page | https://ollama-ai-chat-ui.vercel.app/login |
-| Chat | https://ollama-ai-chat-ui.vercel.app/chat |
-| Device Adviser | https://ollama-ai-chat-ui.vercel.app/device-adviser |
-| **GitHub repository** | https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI |
-| README | https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI/blob/master/README.md |
-| This document | https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI/blob/master/PROJECT_DETAILS.md |
+| **Live app (production)** | https://app-router-ui.vercel.app/ |
+| Sign-in page | https://app-router-ui.vercel.app/login |
+| Chat | https://app-router-ui.vercel.app/chat |
+| Device Adviser | https://app-router-ui.vercel.app/device-adviser |
+| **GitHub repository** | https://github.com/motherskitchenblr2/App-Router |
+| README | https://github.com/motherskitchenblr2/App-Router/blob/master/README.md |
+| This document | https://github.com/motherskitchenblr2/App-Router/blob/master/PROJECT_DETAILS.md |
 
 ### Deployments (Vercel, all `READY`)
 
-| Commit | Description | Deployment URL |
-| --- | --- | --- |
-| `72cd8cf` (latest) | Set `VITE_AUTH_ENABLED=true` in project env | https://ollama-ai-chat-r4r9vyaz2-next-gen-ops-projects.vercel.app |
-| `a4a3e63` | OpenCode v2 web UI replica | https://ollama-ai-chat-c3694fu6j-next-gen-ops-projects.vercel.app |
-| `4cb91d9` | Empty-state fix | https://ollama-ai-chat-p5jw9ickh-next-gen-ops-projects.vercel.app |
-| `54d481c` | `startup.sh` cwd fix | https://ollama-ai-chat-2m7evojvq-next-gen-ops-projects.vercel.app |
+| What | URL |
+| --- | --- |
+| Production alias (every green `master` build) | https://app-router-ui.vercel.app/ |
+| Deployment history | https://vercel.com/next-gen-ops-projects/app-router/deployments |
 
-Every push to `master` auto-deploys to the production alias above
-(Vercel Git integration, `productionBranch: master`).
+Every push to `master` auto-deploys (Vercel Git integration,
+`productionBranch: master`); each deployment also gets its own
+`app-router-*.vercel.app` preview URL.
 
 ### Dashboards
 
 | What | URL |
 | --- | --- |
-| Vercel project | https://vercel.com/next-gen-ops-projects/ollama-ai-chat-ui |
+| Vercel project | https://vercel.com/next-gen-ops-projects/app-router |
 | Vercel team | https://vercel.com/next-gen-ops-projects |
-| GitHub Actions | https://github.com/motherskitchenblr2/Ollama-AI-Chat-UI/actions |
+| GitHub Actions | https://github.com/motherskitchenblr2/App-Router/actions |
 
 ### Local (development sandbox)
 
